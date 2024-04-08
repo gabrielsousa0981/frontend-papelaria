@@ -1,11 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
-import Routes from './routes';
+import Logon from '../src/pages/logon'
+
 
 function App() {
-  return(
- <Routes />
-  )
+  return (
+    <div className="App">
+      <Logon />
+    </div>
+  );
 }
 
 export default App;

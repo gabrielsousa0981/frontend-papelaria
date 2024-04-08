@@ -1,6 +1,8 @@
-import './styles.css'
-import Logo from '../../assets/img/logo.jpg'
-import Menu from '../../componentes/menu'
+import React from "react";
+import '../../global.css'
+import Head from "../../componentes/head";
+import Menu from "../componentes/menu";
+
 
 export default function Dashboard(){
    return(
@@ -9,8 +11,11 @@ export default function Dashboard(){
      
         <Menu />
         </div>
+
+
         <div className='principal'>
-        <h1>Página Principal</h1>
+
+<Head />        
         </div>
     </div>
 

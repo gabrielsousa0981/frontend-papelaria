@@ -1,33 +1,27 @@
-import './styles.css'
-import Logo from '../../assets/img/logo.jpg'
-import {useNavigate} from 'react-router-dom';
-
+import React from "react";
+import '../../global.css'
+import logo from '../../assets/img/logo.avif'
 
 
 export default function Logon(){
-const navigate = useNavigate();
-
-const logar =(e)=>{
-e.preventDefault();
-navigate('/dashboard');
-}
-
-    return(
+   return(
     <div className="logon-container">
-        <div className='logo'>
-           <img src={Logo} />
-        </div>
         <section className="form">
-            <h1>Faça seu login</h1>
-            <form onSubmit={logar} >
-                <input placeholder="Email" />
-                <input placeholder="Senha" type='password' />
-                <button type="submit">Entrar</button>
-                <a href="#">Novo Cadastro</a>
+           <img src={logo} width={200} />
+            <form>
+                <input 
+                placeholder="E-mail"
+                type="email"
+                />
+                <input 
+                placeholder="Senha"
+                type="password"
+                />
+                <button className="button_login" type="submit">
+                    Entrar
+                </button>
             </form>
         </section>
     </div>
-
-   )
-
+   ) 
 }
