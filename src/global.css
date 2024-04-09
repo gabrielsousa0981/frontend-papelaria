@@ -76,3 +76,23 @@ body{
     p{
         margin-top: 10px;
     }
+
+    .menu{
+        width: 20%;
+        background-color: #ffff;
+        margin: 5px;
+        border: 0.5px solid silver;
+        border-radius: 5px;
+    }
+    .main{
+        width: 80%;
+        background-color: #f8f8f8;
+        border: 0.5px solid silver;
+        border-radius: 5px;
+        margin: 5px;
+        padding: 15px;
+    }
+    .dashboard-container{
+    display: flex;
+    flex-direction: row;
+    }

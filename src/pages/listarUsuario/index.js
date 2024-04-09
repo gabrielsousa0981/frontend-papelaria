@@ -1,6 +1,6 @@
 import '../../pages/global.css';
 import Logo from '../../assets/img/logo.jpg'
-import Menu from '../../componentes/menu'
+import Menu from '../componentes/menu'
 
 export default function Listausuario(){
 
