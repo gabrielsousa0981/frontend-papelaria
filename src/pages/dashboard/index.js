@@ -11,7 +11,7 @@ export default function Dashboard() {
              </div>
              
              <div className="main"> {/* Container principal do conteúdo */}
-                <Head /> {/* Renderiza o componente Head */}
+                <Head title="Home" /> {/* Renderiza o componente Head */}
             </div>
         </div>
     );

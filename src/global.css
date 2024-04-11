@@ -85,14 +85,70 @@ body{
         border-radius: 5px;
     }
     .main{
-        width: 80%;
-        background-color: #f8f8f8;
-        border: 0.5px solid silver;
-        border-radius: 5px;
-        margin: 5px;
-        padding: 15px;
+         width: 80%;
+         background-color: #f8f8f8;
+
+            border: 0.5px solid silver;
+            border-radius: 5px;
+            margin: 5px;
+            padding: 15px;
+
     }
     .dashboard-container{
-    display: flex;
-    flex-direction: row;
+        display: flex;
+        flex-direction: row;
     }
+    .link{
+
+        display: flex;
+        width: 85%;    
+        border-radius: 5px;    
+        border: #a29d7f 1px solid;
+        align-items: center;
+        border-radius: 5px;
+        color: #9c8680;
+        padding: 10px;
+        margin: auto;
+        margin-top: 8px;
+        justify-content: safe;
+
+    }
+    nav{
+
+        height: 90vh;
+
+
+    }
+
+.link:hover{
+
+        background-color: #a29d7f;
+        color: white;
+
+}
+
+    .icons-menu{
+
+     margin-right: 10px;
+
+    }
+    .btn-salvar{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 100%;
+        padding: 12px;
+        background-color:#0487D9;
+        border:0;
+        border-radius: 5px;
+        color:#FFF;
+        font-weight: 700;
+        text-align: center;
+        text-decoration:none;
+        font-size: 14px;
+        transition: filter 0.2s;
+    }
+    .btn-salvar:hover{
+        filter:brightness(90%);
+        cursor:pointer
+    }
+    

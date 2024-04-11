@@ -1,8 +1,13 @@
-import '../../pages/global.css';
-import Logo from '../../assets/img/logo.jpg'
-import Menu from '../componentes/menu'
+import React from "react";
 
-export default function Listausuario(){
+
+import Menu from "../componentes/menu"
+
+import Head from "../componentes/head"
+
+import '../../global.css'; // Importa estilos globais para a aplicação
+
+export default function Listausuarios(){
 
     const dados=[
         {id:1,nome:"Carlos",email:"carlos@gmail.com",senha:"123"},
@@ -20,7 +25,7 @@ export default function Listausuario(){
         <h1>Lista de Usuários</h1>
         <table className="table">
            <tr>
-                <th>Id</th>
+                <th></th>
                 <th>Nome</th>
                 <th>Email</th>
                 <th></th>
