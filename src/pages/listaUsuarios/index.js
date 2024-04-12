@@ -27,6 +27,13 @@ function editarusuario(id){
 
 alert(`estou editando usuário de id:${id}`)
 
+}
+
+function excluirusuario(id){
+
+
+alert(`estou excluindo usuário de id:${id}`)
+
 
 
 }
@@ -101,7 +108,7 @@ useEffect(()=>{
 
                  <td>
 
-                  <FiTrash size={24} color="red" cursor="pointer"  />
+                  <FiTrash size={24} color="red" cursor="pointer" onClick={(e)=>{excluirusuario(linha.id)}} />
                   
                   </td>
 
