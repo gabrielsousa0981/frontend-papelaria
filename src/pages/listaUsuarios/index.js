@@ -1,51 +1,133 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
+import '../../global.css'
+import Head from "../componentes/head";
+import Menu from "../componentes/menu";
+import {Link} from "react-router-dom";
+import { FiEdit,FiTrash } from "react-icons/fi";
 
 
-import Menu from "../componentes/menu"
+export default function Listausuario(){
 
-import Head from "../componentes/head"
+  const [usuarios,setUsuarios] = useState([]);
 
-import '../../global.css'; // Importa estilos globais para a aplicação
 
-export default function Listausuarios(){
+function mostrarusuarios(){
 
-    const dados=[
-        {id:1,nome:"Carlos",email:"carlos@gmail.com",senha:"123"},
-        {id:2,nome:"Felipe",email:"felipe@gmail.com",senha:"321"},
-        {id:3,nome:"Nilson",email:"nilson@gmail.com",senha:"321"},
+  const banco = JSON.parse(localStorage.getItem("usuarios")|| "[]")
 
-    ]
-   return(
-    <div className="dashboard-container">
-        <div className='menu'>
-     
-        <Menu />
+
+
+  setUsuarios(banco);
+
+
+}
+
+function editarusuario(id){
+
+
+alert(`estou editando usuário de id:${id}`)
+
+
+
+}
+
+
+
+useEffect(()=>{
+
+  mostrarusuarios()
+
+},[])
+
+    return(
+<div className="dashboard-container">
+        <div className="menu">
+
+
+            <Menu />
+
+
+
         </div>
-        <div className='principal'>
-        <h1>Lista de Usuários</h1>
-        <table className="table">
-           <tr>
-                <th></th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th></th>
-            </tr>
-            {
-               dados.map((usu)=>{
-                return(
-                  <tr key={usu.toString()}>
-                    <td>{usu.id}</td>    
-                    <td>{usu.nome}</td>    
-                    <td>{usu.email}</td>    
-                  </tr>  
-                )
-               }) 
-            }
 
-        </table>
+
+        <div className="main">
+
+            <Head title="Lista de Usuários" />
+
+            <div>
+
+            <Link to="/cadastrousuario"  className='btn-novo'>Novo</Link>
+
+
+
+
         </div>
-    </div>
 
-   )
+<table>
 
+
+  <tr>
+
+  <th>ID</th>
+
+  <th>Nome</th>
+
+  <th>Email</th>
+
+  <th></th>
+  <th></th>
+  
+
+
+  </tr>
+
+
+
+ 
+
+  {
+     usuarios.map((linha)=>{
+      return(
+          <tr key={linha.toString()}>
+               <td>{linha.id}</td>
+               <td>{linha.nome}</td>
+                 <td>{linha.email}</td>
+
+                 <td>
+                  <FiEdit size={24} color="blue" cursor="pointer" onClick={(e)=>{editarusuario(linha.id)}} />
+
+                  </td>
+
+                 <td>
+
+                  <FiTrash size={24} color="red" cursor="pointer"  />
+                  
+                  </td>
+
+                 </tr>
+                     )
+                  })  
+                }
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+</table>
+
+
+</div>
+</div>
+    )
 }

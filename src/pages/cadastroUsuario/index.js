@@ -5,10 +5,16 @@ import Menu from "../componentes/menu"
 
 import Head from "../componentes/head"
 
+import {useNavigate,Link} from "react-router-dom"
+
+
 import '../../global.css'; // Importa estilos globais para a aplicação
 
 
 export default function Cadastrousuario(){
+
+
+    const navigate = useNavigate();
 
 
 
@@ -21,25 +27,11 @@ export default function Cadastrousuario(){
 
     const [senha,setSenha] = useState()
 
-
-
-
     const usuario={
-
-
-
-
-        
-
+               
           id:Date.now().toString(36)+Math.floor(Math.pow(10,12)+Math.random()*9*Math.pow(10,12)).toString(36),
 
-
-
-
-
-
-
-        nome,
+                  nome,
 
 
              email,
@@ -65,13 +57,13 @@ export default function Cadastrousuario(){
             localStorage.setItem("usuarios",JSON.stringify(banco))
 
 
-        alert("deu certo bro!!!")
+        alert("cadastro concluido !")
+
+
+        navigate("/listausuario")
 
 
     }
-
-
-
 
 
     return (
@@ -84,6 +76,7 @@ export default function Cadastrousuario(){
              <div className="main"> {/* Container principal do conteúdo */}
 
                 <Head title="Cadastro de Usuário" /> 
+
 
                 <form onSubmit={salvardados} >
 
