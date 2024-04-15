@@ -5,6 +5,7 @@ import Logon from './pages/logon'
 import Dashboard from './pages/dashboard'
 import Cadastrousuario from './pages/cadastroUsuario'
 import Listausuarios from './pages/listaUsuarios'
+import Editarusuario from './pages/editarUsuario'
 
 export default function Rotas(){
     return(
@@ -14,6 +15,7 @@ export default function Rotas(){
         <Route path="/dashboard"  element={<Dashboard />} />
         <Route path="/cadastrousuario"  element={<Cadastrousuario />} />
         <Route path="/listausuario"  element={<Listausuarios />} />
+        <Route path="/editarusuario/:id"  element={<Editarusuario />} />
 
 
 
