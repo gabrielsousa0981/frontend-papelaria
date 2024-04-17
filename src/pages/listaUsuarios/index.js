@@ -1,5 +1,7 @@
 import React, { useState,useEffect } from "react";
 import '../../global.css'
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import Head from "../componentes/head";
 import Menu from "../componentes/menu";
 import {Link, useNavigate} from "react-router-dom";
@@ -34,14 +36,44 @@ navigate(`/editarusuario/${id}`)
 
 }
 
-  function excluirusuario(id){
 
 
-alert(`estou excluindo usuário de id:${id}`)
+   const excluirusuario = (id) => {
+      confirmAlert({
+        title: 'Excluir usuário ',
+        message: 'Deseja excluir esse usuário?.',
+        buttons: [
+          {
+            label: 'Sim',
+            onClick: () => {
+
+              const banco = JSON.parse(localStorage.getItem("usuarios")|| "[]")
+              const dadosvelhos = banco.filter(linha=>
+
+                {
+                  return   linha.id!==id
+                
+                }
+                )
+
+                localStorage.setItem("usuarios",
+
+                JSON.stringify(dadosvelhos))
 
 
 
-  }
+            }
+          },
+          {
+            label: 'Não',
+            onClick: () => alert('Ação Cancelada!')
+          }
+        ]
+      });
+    };
+
+
+  
 
 
 

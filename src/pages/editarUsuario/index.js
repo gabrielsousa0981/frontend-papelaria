@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 
 import Menu from "../componentes/menu"
@@ -16,51 +16,111 @@ export default function Editarusuario(){
 
     const navigate = useNavigate();
 
-    const {id} = useParams;
+    const {id} = useParams();
 
 
     const [nome,setNome] = useState("")
 
-         const [email,setEmail] = useState("")
+
+    const [email,setEmail] = useState("")
 
 
     const [senha,setSenha] = useState()
 
+    const [usuarios,setUsuarios] = useState ([])
+
+
+
+
 
     const usuario={
                
-          id:Date.now().toString(36)+Math.floor(Math.pow(10,12)+Math.random()*9*Math.pow(10,12)).toString(36),
+       id:id,
 
-                  nome,
-
-
-             email,
+       nome,
 
 
-        senha
+       email,
+
+
+       senha
 
     };
 
+    useEffect (()=>{
+
+        exibirdados()
+
+
+    },[])
+
+
+
+     const exibirdados=()=>{
+
+
+        
+
+    const banco = JSON.parse(localStorage.getItem("usuarios")|| "[]")
+
+
+         
+
+
+
+     banco.filter(linha=>{
+
+    return  linha.id===id
+
+
+        }
+        ).map(value=>{
+            
+            setNome(value.nome)
+            setEmail(value.email)
+            setSenha(value.senha)
+
+            
+        }
+        )
+
+
+
+
+
+
+    }
 
     const salvardados=(e)=>{
 
 
-        e.preventDefault();
+    e.preventDefault();
 
 
-            const banco = JSON.parse(localStorage.getItem("usuarios")|| "[]")
+    const banco = JSON.parse(localStorage.getItem("usuarios")|| "[]")
+
+    const dadosvelhos = banco.filter(linha=>
+
+        {
+          return   linha.id!==id
+        
+        }
+        )
+
+    dadosvelhos.push(usuario)
+
+    console.log(dadosvelhos)
+         
+
+     localStorage.setItem("usuarios",
+
+     JSON.stringify(dadosvelhos))
 
 
-                banco.push(usuario)
+    alert("cadastro concluido !")
 
 
-            localStorage.setItem("usuarios",JSON.stringify(banco))
-
-
-        alert("cadastro concluido !")
-
-
-        navigate("/listausuario")
+     navigate("/listausuario")
 
 
     }
@@ -106,7 +166,7 @@ export default function Editarusuario(){
                 </form>
             </div>
         </div>
-    );
+    )
 
 
 }
