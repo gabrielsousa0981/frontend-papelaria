@@ -67,7 +67,7 @@ export default function Listausuario() {
           <Link to="/cadastrousuario" className='btn-novo'>Novo</Link>
         </div>
         <table>
-          <thead>
+          
             <tr>
               <th>ID</th>
               <th>Nome</th>
@@ -75,8 +75,8 @@ export default function Listausuario() {
               <th></th>
               <th></th>
             </tr>
-          </thead>
-          <tbody>
+
+          
             {
               usuarios.map((linha) => {
                 return (
@@ -100,7 +100,6 @@ export default function Listausuario() {
                     </th>
                   </tr>
 
-          </tbody>
         </table>
       </div>
     </div>
