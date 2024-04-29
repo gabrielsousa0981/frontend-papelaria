@@ -8,37 +8,37 @@ import { Link, useNavigate } from "react-router-dom";
 import { FiEdit,FiTrash } from "react-icons/fi";
 import Barrasuperior from "../componentes/barrasuperior";
 
-export default function Listausuarios(){
+export default function Listaprodutos(){
 const navigate = useNavigate();
-const [usuarios,setUsuarios] = useState([]);
+const [produtos,setProdutos] = useState([]);
 const [quantidade,setQuantidade] = useState(0);
 
-function mostrarusuarios(){
-    const banco = JSON.parse(localStorage.getItem("usuarios")|| "[]")
+function mostrarprodutos(){
+    const banco = JSON.parse(localStorage.getItem("produtos")|| "[]")
     setQuantidade(banco.length)
-    setUsuarios(banco);
+    setProdutos(banco);
 }
-function editarusuario(id){
- alert(`Estou editando usuário de id:${id}`)
- navigate(`/editarusuario/${id}`)
+function editarproduto(id){
+ alert(`Estou editando produto de id:${id}`)
+ navigate(`/editarproduto/${id}`)
 }
 
-  const  excluirusuario = (id) => {
+  const  excluirproduto = (id) => {
         confirmAlert({
-          title: 'Excluir usuário',
-          message: 'Deseja realmente excluir esse usuário?',
+          title: 'Excluir produto',
+          message: 'Deseja realmente excluir esse produto?',
           buttons: [
             {
               label: 'Sim',
               onClick: () => {
-                const banco = JSON.parse(localStorage.getItem("usuarios")|| "[]")
+                const banco = JSON.parse(localStorage.getItem("produtos")|| "[]")
                 const dadosvelhos = banco.filter(linha=>
                   {
                       return linha.id!=id
                   }
                   )
-                  localStorage.setItem("usuarios",JSON.stringify(dadosvelhos))
-                  mostrarusuarios();
+                  localStorage.setItem("produtos",JSON.stringify(dadosvelhos))
+                  mostrarprodutos();
               }
             },
             {
@@ -50,7 +50,7 @@ function editarusuario(id){
       };
 
 useEffect(()=>{
-    mostrarusuarios()
+    mostrarprodutos()
 },[])
     return(
 <div className="dashboard-container">
@@ -60,32 +60,36 @@ useEffect(()=>{
             <Menu />
         </div>
         <div className="main">
-            <Head title="Lista de Usuários" />
+            <Head title="Lista de Produtos" />
             <div>
 
-                <Link to="/cadastrousuario" className='btn-novo'>Novo</Link>
+                <Link to="/cadastroproduto" className='btn-novo'>Novo</Link>
             </div>
            <table>
             <tr>
              <th>ID</th>
-             <th>Nome</th>
-             <th>Email</th>
+             <th>Descrição</th>
+             <th>valor Unitário</th>
+             <th>Quantidade Mínima</th>
+             <th>Quantidade Máxima</th>
              <th></th>
              <th></th>
             </tr>
             
                 {
-                  usuarios.map((linha)=>{
+                  produtos.map((linha)=>{
                      return(
                         <tr key={linha.toString()}>
                         <td>{linha.id}</td>
-                        <td>{linha.nome}</td>
-                        <td>{linha.email}</td>
+                        <td>{linha.descricao}</td>
+                        <td>{linha.valor_unitario}</td>
+                        <td>{linha.quantidade_minima}</td>
+                        <td>{linha.quantidade_maxima}</td>
                         <td>
-                            <FiEdit size={24} color="blue" cursor="pointer" onClick={(e)=>{editarusuario(linha.id)}} />
+                            <FiEdit size={24} color="blue" cursor="pointer" onClick={(e)=>{editarproduto(linha.id)}} />
                         </td>
                         <td>
-                            <FiTrash size={24} color="red" cursor="pointer" onClick={(e)=>{excluirusuario(linha.id)}}/>
+                            <FiTrash size={24} color="red" cursor="pointer" onClick={(e)=>{excluirproduto(linha.id)}}/>
                         </td>
                         </tr>
                      )

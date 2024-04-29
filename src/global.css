@@ -45,9 +45,10 @@ body{
         width: 250px;
         
     }
-    .logo{
-    display: flex;
-    justify-content: center;
+    .logoicon{
+      width: 60px !important;
+      border-radius: 50%;
+      border: solid 0.5px rgba(255, 166, 0, 0.516);
     
     }
     .button_login{
@@ -85,76 +86,58 @@ body{
         border-radius: 5px;
     }
     .main{
-         width: 80%;
-         background-color: #f8f8f8;
-
-            border: 0.5px solid silver;
-            border-radius: 5px;
-            margin: 5px;
-            padding: 15px;
-
+        width: 80%;
+        background-color: #f8f8f8;
+        border: 0.5px solid silver;
+        border-radius: 5px;
+        margin: 5px;
+        padding: 15px;
     }
     .dashboard-container{
+    display: flex;
+    flex-direction: column;
+    }
+    .header{
         display: flex;
         flex-direction: row;
     }
-    .link{
-
+    .barrasuperior{
         display: flex;
-        width: 85%;    
-        border-radius: 5px;    
+        justify-content: space-between;
+        align-items: center;
+        padding:10px;
+    }
+    .link{
+        display: flex;
+        width: 85%;
+        border-radius: 5px;
         border: #a29d7f 1px solid;
         align-items: center;
         border-radius: 5px;
-        color: #9c8680;
+        color:#9c8680;
         padding: 10px;
         margin: auto;
-        margin-top: 8px;
-        justify-content: safe;
-
+        margin-top:8px;
+        
+        
     }
     nav{
-
         height: 90vh;
-
-
     }
 
-.link:hover{
-
-        background-color: #a29d7f;
+    .link:hover{
+        background-color:#a29d7f ;
         color: white;
-
-}
-
-    .icons-menu{
-
-     margin-right: 10px;
-
-    }
-    .btn-salvar{
+       }
+       .icon-menu{
+           padding-right: 20px;
+       }
+       .btn-salvar{
         margin-top: 10px;
         margin-bottom: 10px;
         width: 100%;
         padding: 12px;
-        background-color:#0487D9;
-        border:0;
-        border-radius: 5px;
-        color:#FFF;
-        font-weight: 700;
-        text-align: center;
-        text-decoration:none;
-        font-size: 14px;
-        transition: filter 0.2s;
-    }
-    
-    .btn-novo{
-        margin-top: 10px;
-        margin-bottom: 10px;
-        margin-right: 100%;
-        width: 100%;
-        padding: 12px;
-        background-color:#2c18aa;
+        background-color: green;
         border:0;
         border-radius: 5px;
         color:#FFF;
@@ -168,7 +151,23 @@ body{
         filter:brightness(90%);
         cursor:pointer
     }
-    
+       .btn-novo{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-right: 100%;
+        width: 100%;
+        padding: 12px;
+        background-color: green;
+        border:0;
+        border-radius: 5px;
+        color:#FFF;
+        font-weight: 700;
+        text-align: center;
+        text-decoration:none;
+        font-size: 14px;
+        transition: filter 0.2s;
+        
+    }
     .btn-novo:hover{
         filter:brightness(90%);
         cursor:pointer
@@ -176,12 +175,10 @@ body{
     table{
         font:400 16px 'Roboto', sans-serif; 
         margin: 0 auto;
-    
-        
+   
     }
     th, td {
         border-bottom: 1px solid #96D4D4;
         text-align: left;
         padding: 5px;
       }
-      

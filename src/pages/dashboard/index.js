@@ -1,18 +1,21 @@
-import React from "react"; // Importa a biblioteca React para utilizar componentes e funcionalidades do React
-import '../../global.css'; // Importa estilos globais para a aplicação
-import Head from "../componentes/head"; // Importa o componente Head do diretório '../componentes/head'
-import Menu from "../componentes/menu"; // Importa o componente Menu do diretório '../componentes/menu'
+import React from "react";
+import '../../global.css'
+import Head from "../componentes/head";
+import Menu from "../componentes/menu";
+import Barrasuperior from "../componentes/barrasuperior";
 
-export default function Dashboard() {
-    return (
-        <div className="dashboard-container"> {/* Container principal do dashboard */}
-            <div className="menu"> {/* Container para o menu */}
-                <Menu /> {/* Renderiza o componente Menu */}
-             </div>
-             
-             <div className="main"> {/* Container principal do conteúdo */}
-                <Head title="Home" /> {/* Renderiza o componente Head */}
-            </div>
+export default function Dashboard(){
+    return(
+<div className="dashboard-container">
+        <Barrasuperior />
+    <div className="header">    
+        <div className="menu">
+            <Menu />
         </div>
-    );
+        <div className="main">
+            <Head title="Home" />
+        </div>
+    </div>
+</div>
+    )
 }
