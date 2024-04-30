@@ -71,7 +71,7 @@ export default function Editarproduto(){
                     <Menu />
                 </div>
                 <div className="main">
-                    <Head title="Editar Usuário" />
+                    <Head title="Editar Produto" />
     
                     <form onSubmit={salvardados} > 
                         

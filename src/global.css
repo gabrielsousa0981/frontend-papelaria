@@ -28,8 +28,9 @@ body{
         margin-top: 20px;
     }
 
-    h1{
+    h1 {
         text-align: center;
+        margin-bottom: 20px; /* Adicionado espaço abaixo do título */
     }
     input, button, textarea, select{
         font:400 14px 'Roboto', sans-serif;  

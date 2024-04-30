@@ -7,27 +7,18 @@ import "../../global.css";
 
 export default function Cadastroproduto() {
   const navigate = useNavigate();
-  const [produtos, setProdutos] = useState([]);
-  const [id, setId] = useState(""); // Novo estado para o ID
-  const [status, setStatus] = useState("");
   const [descricao, setDescricao] = useState("");
   const [quantidade_minima, setQuantidade_minima] = useState("");
   const [quantidade_maxima, setQuantidade_maxima] = useState("");
 
-  function mostrarprodutos() {
-    const banco = JSON.parse(localStorage.getItem("produtos") || "[]");
-    setProdutos(banco);
-  }
-
   useEffect(() => {
-    mostrarprodutos();
+    // Aqui você pode realizar alguma lógica se necessário
   }, []);
 
   const salvardados = (e) => {
     e.preventDefault();
     const produto = {
-      id, // Incluindo o ID no objeto do produto
-      status,
+      id: Date.now().toString(36) + Math.floor(Math.pow(10, 12) + Math.random() * 9 * Math.pow(10, 12)).toString(36),
       descricao,
       quantidade_minima,
       quantidade_maxima,
@@ -47,19 +38,8 @@ export default function Cadastroproduto() {
           <Menu />
         </div>
         <div className="main">
-          <Head title="Cadastro de Usuário" />
+          <Head title="Cadastro de Produto" />
           <form onSubmit={salvardados}>
-            <input
-              type="text"
-              placeholder="ID"
-              value={id}
-              onChange={(e) => setId(e.target.value)} // Atualiza o estado do ID
-            />
-            <select name="select" value={status} onChange={(e) => setStatus(e.target.value)}>
-              {produtos.map((linha) => (
-                <option key={linha.id} value={linha.id}>{linha.descricao}</option>
-              ))}
-            </select>
             <input
               type="text"
               placeholder="Descrição"
@@ -68,13 +48,13 @@ export default function Cadastroproduto() {
             />
             <input
               type="number"
-              placeholder="quantidade minima"
+              placeholder="Quantidade Mínima"
               value={quantidade_minima}
               onChange={(e) => setQuantidade_minima(e.target.value)}
             />
             <input
               type="number"
-              placeholder="quantidade maxima"
+              placeholder="Quantidade Máxima"
               value={quantidade_maxima}
               onChange={(e) => setQuantidade_maxima(e.target.value)}
             />
@@ -82,7 +62,6 @@ export default function Cadastroproduto() {
               Salvar
             </button>
           </form>
-          {status}
         </div>
       </div>
     </div>

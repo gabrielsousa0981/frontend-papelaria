@@ -8,11 +8,11 @@ import "../../global.css";
 export default function CadastroEntrada() {
   const navigate = useNavigate();
   const [produtos, setProdutos] = useState([]);
-  const [entradas, setEntrada] = useState([]);
+  const [entradas, setEntradas] = useState([]);
   const [id_produto, setId_Produto] = useState("");
   const [qtde, setQTDE] = useState("");
   const [valor_unitario, setValor_Unitario] = useState("");
-  const [data_entrada, setData_entrada]= useState("");
+  const [data_entrada, setData_entrada] = useState("");
 
   function mostrarProdutos() {
     const banco = JSON.parse(localStorage.getItem("produtos") || "[]");
@@ -49,12 +49,12 @@ export default function CadastroEntrada() {
         <div className="main">
           <Head title="Cadastro de Entrada" />
           <form onSubmit={salvarDados}>
-            <select name="select" value={id_produto} onChange={(e) => setId_Produto(e.target.value)}>
-                <option value="">Selecione um Produto</option>
-              {produtos.map((produto) => (
-                <option key={produto.id} value={produto.id}>{produto.descricao}</option>
-              ))}
-            </select>
+            <input
+              type="text"
+              placeholder="ID Produto"
+              value={id_produto}
+              onChange={(e) => setId_Produto(e.target.value)}
+            />
             <input
               type="text"
               placeholder="Quantidade"
@@ -69,7 +69,7 @@ export default function CadastroEntrada() {
             />
             <input
               type="date"
-              placeholder="data de entrada"
+              placeholder="Data de entrada"
               value={data_entrada}
               onChange={(e) => setData_entrada(e.target.value)}
             />

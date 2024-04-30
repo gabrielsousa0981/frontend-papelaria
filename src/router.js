@@ -9,6 +9,8 @@ import CadastroEntrada from './pages/cadastroEntrada'
 import Listausuarios from './pages/listaUsuarios'
 import Listaprodutos from './pages/listaProdutos'
 import ListaEntrada from './pages/listaEntrada'
+import ListaEstoque from './pages/listaEstoque'
+
 
 import Editarusuario from './pages/editarUsuario'
 import Editarproduto from './pages/editarProduto'
@@ -26,6 +28,8 @@ export default function Rotas(){
         <Route path="/listausuario"  element={<Listausuarios />} />
         <Route path="/listaproduto"  element={<Listaprodutos />} />
         <Route path="/listaentrada"  element={<ListaEntrada />} />
+        <Route path="/listaestoque"  element={<ListaEstoque />} />
+
 
         <Route path="/editarusuario/:id"  element={<Editarusuario />} />
         <Route path="/editarproduto/:id"  element={<Editarproduto />} />

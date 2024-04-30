@@ -2,7 +2,6 @@ import { useState } from "react"
 import Menu from "../componentes/menu"
 import Head from "../componentes/head"
 import {useNavigate, Link} from "react-router-dom"
-import Barrasuperior from "../componentes/barrasuperior";
 
 
 import '../../global.css'
@@ -31,8 +30,6 @@ export default function Cadastrousuario(){
     }
     return(
         <div className="dashboard-container">
-                    <Barrasuperior />
-                <div className="header">    
                 <div className="menu">
                     <Menu />
                 </div>
@@ -65,7 +62,6 @@ export default function Cadastrousuario(){
                        </button>
                       
                     </form>
-                </div>
                 </div>
         </div>
             )

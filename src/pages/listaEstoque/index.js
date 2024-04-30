@@ -8,32 +8,29 @@ import Menu from "../componentes/menu";
 import Barrasuperior from "../componentes/barrasuperior";
 import "../../global.css";
 
-export default function Listaentradas() {
+export default function ListaEstoque() {
   const navigate = useNavigate();
-  const [entradas, setEntradas] = useState([]);
+  const [estoque, setEstoque] = useState([]);
   const [quantidade, setQuantidade] = useState(0);
 
-  function mostrarentrada() {
-    const banco = JSON.parse(localStorage.getItem("entradas") || "[]");
+  function mostrarEstoque() {
+    const banco = JSON.parse(localStorage.getItem("estoque") || "[]");
     setQuantidade(banco.length);
-    setEntradas(banco);
+    setEstoque(banco);
   }
-const buscarproduto=(id)=>{
-    const banco = JSON.parse(localStorage.getItem("produtos") || "[]")
-    const produto = banco.filter(linha => linha.id === id);
-    if(produto.length === 0){
-        return "Produto não encontrado";
-    }
-    return produto[0].descricao;
 
+  const buscarProduto = (id) => {
+    const banco = JSON.parse(localStorage.getItem("produtos") || "[]");
+    const produto = banco.find((item) => item.id === id);
+    return produto ? produto.descricao : "Produto não encontrado";
+  };
 
-}
-  function editarentrada(id) {
-    alert(`Estou editando produto de id:${id}`);
+  const editarEntrada = (id) => {
+    alert(`Estou editando produto de ID: ${id}`);
     navigate(`/editarproduto/${id}`);
-  }
+  };
 
-  const excluirentrada = (id) => {
+  const excluirEntrada = (id) => {
     confirmAlert({
       title: 'Excluir produto',
       message: 'Deseja realmente excluir esse produto?',
@@ -41,10 +38,10 @@ const buscarproduto=(id)=>{
         {
           label: 'Sim',
           onClick: () => {
-            const banco = JSON.parse(localStorage.getItem("entradas") || "[]");
-            const dadosvelhos = banco.filter(linha => linha.id !== id);
-            localStorage.setItem("entradas", JSON.stringify(dadosvelhos));
-            mostrarentrada();
+            const banco = JSON.parse(localStorage.getItem("estoque") || "[]");
+            const dadosAtualizados = banco.filter((item) => item.id !== id);
+            localStorage.setItem("estoque", JSON.stringify(dadosAtualizados));
+            mostrarEstoque();
           }
         },
         {
@@ -56,7 +53,7 @@ const buscarproduto=(id)=>{
   };
 
   useEffect(() => {
-    mostrarentrada();
+    mostrarEstoque();
   }, []);
 
   return (
@@ -67,35 +64,33 @@ const buscarproduto=(id)=>{
           <Menu />
         </div>
         <div className="main">
-          <Head title="Lista de Produtos" />
+          <Head title="Lista de Estoque" />
           <div>
-            <Link to="/cadastroentrada" className='btn-novo'>Novo</Link>
+          <Link to="/cadastroestoque" className='btn-novo'>Novo</Link>
           </div>
           <table>
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Id_Produto</th>
+                <th>ID Produto</th>
                 <th>QTDE</th>
-                <th>Valor_Unitario</th>
-                <th>Data_Entrada</th>
+                <th>Valor Unitario</th>
                 <th></th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              {entradas.map((linha) => (
-                <tr key={linha.id}>
-                  <td>{linha.id}</td>
-                  <td>{buscarproduto(linha.id_produto)}</td>
-                  <td>{linha.qtde}</td>
-                  <td>{linha.valor_unitario}</td>
-                  <td>{linha.data_entrada}</td>
+              {estoque.map((item) => (
+                <tr key={item.id}>
+                  <td>{item.id}</td>
+                  <td>{buscarProduto(item.id_produto)}</td>
+                  <td>{item.qtde}</td>
+                  <td>{item.valor_unitario}</td>
                   <td>
-                    <FiEdit size={24} color="blue" cursor="pointer" onClick={() => editarentrada(linha.id)} />
+                    <FiEdit size={24} color="blue" cursor="pointer" onClick={() => editarEntrada(item.id)} />
                   </td>
                   <td>
-                    <FiTrash size={24} color="red" cursor="pointer" onClick={() => excluirentrada(linha.id)} />
+                    <FiTrash size={24} color="red" cursor="pointer" onClick={() => excluirEntrada(item.id)} />
                   </td>
                 </tr>
               ))}
