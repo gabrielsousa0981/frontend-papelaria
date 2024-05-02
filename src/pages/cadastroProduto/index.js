@@ -10,6 +10,7 @@ export default function Cadastroproduto() {
   const [descricao, setDescricao] = useState("");
   const [quantidade_minima, setQuantidade_minima] = useState("");
   const [quantidade_maxima, setQuantidade_maxima] = useState("");
+  const [valor_unitario, setValorUnitario] = useState(""); 
 
   useEffect(() => {
     // Aqui você pode realizar alguma lógica se necessário
@@ -17,11 +18,17 @@ export default function Cadastroproduto() {
 
   const salvardados = (e) => {
     e.preventDefault();
+    // Verifica se algum campo está vazio antes de salvar
+    if (!descricao || !quantidade_minima || !quantidade_maxima || !valor_unitario) {
+      alert("Por favor, preencha todos os campos antes de salvar!");
+      return;
+    }
     const produto = {
       id: Date.now().toString(36) + Math.floor(Math.pow(10, 12) + Math.random() * 9 * Math.pow(10, 12)).toString(36),
       descricao,
       quantidade_minima,
       quantidade_maxima,
+      valor_unitario, 
     };
     const banco = JSON.parse(localStorage.getItem("produtos") || "[]");
     banco.push(produto);
@@ -57,6 +64,12 @@ export default function Cadastroproduto() {
               placeholder="Quantidade Máxima"
               value={quantidade_maxima}
               onChange={(e) => setQuantidade_maxima(e.target.value)}
+            />
+            <input
+              type="number" 
+              placeholder="Valor Unitário"
+              value={valor_unitario}
+              onChange={(e) => setValorUnitario(e.target.value)}
             />
             <button type="submit" className="btn-salvar">
               Salvar

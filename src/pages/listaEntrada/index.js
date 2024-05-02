@@ -67,7 +67,7 @@ const buscarproduto=(id)=>{
           <Menu />
         </div>
         <div className="main">
-          <Head title="Lista de Produtos" />
+          <Head title="Lista de Entrada" />
           <div>
             <Link to="/cadastroentrada" className='btn-novo'>Novo</Link>
           </div>
@@ -76,8 +76,8 @@ const buscarproduto=(id)=>{
               <tr>
                 <th>ID</th>
                 <th>Id_Produto</th>
-                <th>QTDE</th>
-                <th>Valor_Unitario</th>
+                <th>QTD</th>
+                <th>Valor Unitario</th>
                 <th>Data_Entrada</th>
                 <th></th>
                 <th></th>
@@ -101,8 +101,13 @@ const buscarproduto=(id)=>{
               ))}
             </tbody>
           </table>
+
+
           <p>Total de Registros: {quantidade}</p>
+          
         </div>
+
+
       </div>
     </div>
   );

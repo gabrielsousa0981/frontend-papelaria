@@ -8,15 +8,15 @@ import Menu from "../componentes/menu";
 import Barrasuperior from "../componentes/barrasuperior";
 import "../../global.css";
 
-export default function ListaEstoque() {
+export default function Listasaidas() {
   const navigate = useNavigate();
-  const [estoque, setEstoque] = useState([]);
+  const [saidas, setSaidas] = useState([]);
   const [quantidade, setQuantidade] = useState(0);
 
-  function mostrarEstoque() {
-    const banco = JSON.parse(localStorage.getItem("estoque") || "[]");
+  function mostrarSaida() {
+    const banco = JSON.parse(localStorage.getItem("saidas") || "[]");
     setQuantidade(banco.length);
-    setEstoque(banco);
+    setSaidas(banco);
   }
 
   const buscarProduto = (id) => {
@@ -25,23 +25,23 @@ export default function ListaEstoque() {
     return produto ? produto.descricao : "Produto não encontrado";
   };
 
-  const editarEntrada = (id) => {
-    alert(`Estou editando produto de ID: ${id}`);
-    navigate(`/editarproduto/${id}`);
-  };
+  function editarSaida(id) {
+    alert(`Estou editando a saída de ID: ${id}`);
+    navigate(`/editarsaida/${id}`);
+  }
 
-  const excluirEntrada = (id) => {
+  const excluirSaida = (id) => {
     confirmAlert({
-      title: 'Excluir produto',
-      message: 'Deseja realmente excluir esse produto?',
+      title: 'Excluir saída',
+      message: 'Deseja realmente excluir essa saída?',
       buttons: [
         {
           label: 'Sim',
           onClick: () => {
-            const banco = JSON.parse(localStorage.getItem("estoque") || "[]");
-            const dadosAtualizados = banco.filter((item) => item.id !== id);
-            localStorage.setItem("estoque", JSON.stringify(dadosAtualizados));
-            mostrarEstoque();
+            const banco = JSON.parse(localStorage.getItem("saidas") || "[]");
+            const novosDados = banco.filter((item) => item.id !== id);
+            localStorage.setItem("saidas", JSON.stringify(novosDados));
+            mostrarSaida();
           }
         },
         {
@@ -53,7 +53,7 @@ export default function ListaEstoque() {
   };
 
   useEffect(() => {
-    mostrarEstoque();
+    mostrarSaida();
   }, []);
 
   return (
@@ -64,33 +64,35 @@ export default function ListaEstoque() {
           <Menu />
         </div>
         <div className="main">
-          <Head title="Lista de Estoque" />
+          <Head title="Lista de Saída" />
           <div>
-          <Link to="/cadastroestoque" className='btn-novo'>Novo</Link>
+            <Link to="/cadastrosaida" className='btn-novo'>Novo</Link>
           </div>
           <table>
             <thead>
               <tr>
                 <th>ID</th>
-                <th>ID_Produto</th>
-                <th>QTDE</th>
-                <th>Valor Unitario</th>
+                <th>Id_Produto</th>
+                <th>QTD</th>
+                <th>Valor Unitário</th>
+                <th>Data_Saida</th>
                 <th></th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              {estoque.map((item) => (
+              {saidas.map((item) => (
                 <tr key={item.id}>
                   <td>{item.id}</td>
                   <td>{buscarProduto(item.id_produto)}</td>
                   <td>{item.qtde}</td>
                   <td>{item.valor_unitario}</td>
+                  <td>{item.data_saida}</td>
                   <td>
-                    <FiEdit size={24} color="blue" cursor="pointer" onClick={() => editarEntrada(item.id)} />
+                    <FiEdit size={24} color="blue" cursor="pointer" onClick={() => editarSaida(item.id)} />
                   </td>
                   <td>
-                    <FiTrash size={24} color="red" cursor="pointer" onClick={() => excluirEntrada(item.id)} />
+                    <FiTrash size={24} color="red" cursor="pointer" onClick={() => excluirSaida(item.id)} />
                   </td>
                 </tr>
               ))}
