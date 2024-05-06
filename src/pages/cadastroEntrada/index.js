@@ -24,13 +24,8 @@ export default function Cadastroentrada() {
 
   const salvarDados = (e) => {
     e.preventDefault();
-
-    // Check if any of the required fields are empty
-    if (!id_produto || !qtde || !valor_unitario || !data_entrada) {
-      alert("Por favor, preencha todos os campos!");
-      return;
-    }
-
+    const estoques = JSON.parse(localStorage.getItem("estoques") || "[]");
+     //iniciando para atualizar entrada
     const entrada = {
       id: Date.now().toString(36) + Math.floor(Math.pow(10, 12) + Math.random() * 9 * Math.pow(10, 12)).toString(36),
       id_produto,
@@ -38,12 +33,55 @@ export default function Cadastroentrada() {
       valor_unitario,
       data_entrada,
     };
-    const banco = JSON.parse(localStorage.getItem("entradas") || "[]");
-    banco.push(entrada);
-    localStorage.setItem("entradas", JSON.stringify(banco));
+    //buscando todos os produtos no estoque
+    
+  //filtrando o produto no estoque
+    let produtoexiste = estoques.filter((linha)=>{
+     return linha.id_produto == id_produto
+    })
+    //independente de ter o produto no estoque ou nao, aqui será inserido no estoque 
+    const entradas = JSON.parse(localStorage.getItem("entradas") || "[]");
+    entradas.push(entrada);
+    localStorage.setItem("entradas", JSON.stringify(entradas)); 
+// até aqui a entrada foi inserida, lembrando que será inserida independente de haver o produto ou nao no estoque
+
+
+    //atualizando estoque
+// aqui verificaremos se o id do produto que foi inserido na entrada, consta no estoque
+    if (produtoexiste[0].id_produto) {
+      // caso o produto seja encontrado no estoque, nesse bloco, faremos a atualização da quantidade e do valor desse produto
+                const paraatualizar = estoques.filter((linha)=>{
+                 return linha.id_produto != id_produto // fazando um filtro para verificar se o produto esta no estoque
+                })
+                const qtde_estoque = produtoexiste ? produtoexiste[0].qtde : 0;
+                const id_estoque = produtoexiste ? produtoexiste[0].id : 0;
+                // aqui faremos a atualização no estoque, na situação de acharmos o produto no estoque
+                const atualizarestoque ={
+                  id:id_estoque,
+                  qtde: qtde_estoque + entrada.qtde,
+                  valor_unitario: entrada.valor_unitario,
+                }
+                paraatualizar.push(atualizarestoque) // aqui estamos juntando o que não foi alterado no estoque com os dados que serão alterados
+                localStorage.setItem("estoques", JSON.stringify(paraatualizar));// pronto agora o estoque será alterado
+    } else {
+      // aqui vai acontecer somente se o produto não foi encontrado no estoque anteriormente.
+              const novoestoque = {
+                id: Date.now().toString(36) + Math.floor(Math.pow(10, 12) + Math.random() * 9 * Math.pow(10, 12)).toString(36),
+                id_produto,
+                qtde: entrada.qtde,
+                valor_unitario: entrada.valor_unitario,
+              };
+              localStorage.setItem("estoques", JSON.stringify(novoestoque));
+    }
+
     alert("Dados Salvos com Sucesso!!!!!");
     navigate("/listaentrada");
   };
+
+
+
+
+
 
   return (
     <div className="dashboard-container">

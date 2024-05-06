@@ -45,7 +45,7 @@ export default function CadastroEstoque() {
           <form onSubmit={salvardados}>
             <input
               type="text"
-              placeholder="ID do Produto"
+              placeholder="Produto"
               value={idProduto}
               onChange={(e) => setIdProduto(e.target.value)}
             />

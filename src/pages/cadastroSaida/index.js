@@ -11,21 +11,21 @@ export default function CadastroSaida() {
   const [id_produto, setId_Produto] = useState("");
   const [qtde, setQTDE] = useState("");
   const [valor_unitario, setValor_Unitario] = useState("");
-  const [data_saida, setData_saida] = useState("");
+  const [data_saida, setData_Saida] = useState("");
+
+  useEffect(() => {
+    mostrarProdutos();
+  }, []);
 
   function mostrarProdutos() {
     const banco = JSON.parse(localStorage.getItem("produtos") || "[]");
     setProdutos(banco);
   }
 
-  useEffect(() => {
-    mostrarProdutos();
-  }, []);
-
   const salvarDados = (e) => {
     e.preventDefault();
 
-    // Check if any of the required fields are empty
+    // Verificar se todos os campos obrigatórios estão preenchidos
     if (!id_produto || !qtde || !valor_unitario || !data_saida) {
       alert("Por favor, preencha todos os campos!");
       return;
@@ -55,12 +55,17 @@ export default function CadastroSaida() {
         <div className="main">
           <Head title="Cadastro de Saída" />
           <form onSubmit={salvarDados}>
-            <input
-              type="text"
-              placeholder="ID Produto"
+            <select
               value={id_produto}
               onChange={(e) => setId_Produto(e.target.value)}
-            />
+            >
+              <option value="">Selecione um produto</option>
+              {produtos.map((produto) => (
+                <option key={produto.id} value={produto.id}>
+                  {produto.descricao}
+                </option>
+              ))}
+            </select>
             <input
               type="text"
               placeholder="Quantidade"
@@ -75,9 +80,9 @@ export default function CadastroSaida() {
             />
             <input
               type="date"
-              placeholder="Data de Saída"
+              placeholder="Data de saída"
               value={data_saida}
-              onChange={(e) => setData_saida(e.target.value)}
+              onChange={(e) => setData_Saida(e.target.value)}
             />
             <button type="submit" className="btn-salvar">
               Salvar

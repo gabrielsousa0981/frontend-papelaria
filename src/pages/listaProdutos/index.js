@@ -70,8 +70,8 @@ useEffect(()=>{
              <th>ID</th>
              <th>Descrição</th>
              <th>valor Unitário</th>
-             <th>Quantidade Mínima</th>
-             <th>Quantidade Máxima</th>
+             <th>Estoque Mínimo</th>
+             <th>Estoque Máximo</th>
              <th></th>
              <th></th>
             </tr>
@@ -97,7 +97,7 @@ useEffect(()=>{
                 }
      
              <tr>
-              <th colSpan={5}>Total de Registros:{quantidade}</th>
+              <th colSpan={5}>Total de Registros: {quantidade}</th>
    
              </tr>
            </table>
