@@ -7,9 +7,9 @@ import "../../global.css";
 
 export default function Cadastroproduto() {
   const navigate = useNavigate();
-  const [descricao, setDescricao] = useState("");
-  const [quantidade_minima, setQuantidade_minima] = useState("");
-  const [quantidade_maxima, setQuantidade_maxima] = useState("");
+  const [produto, setProduto] = useState("");
+  const [estoque_minimo, setEstoqueMinimo] = useState("");
+  const [estoque_maximo, setEstoqueMaximo] = useState("");
   const [valor_unitario, setValorUnitario] = useState(""); 
 
   useEffect(() => {
@@ -19,19 +19,19 @@ export default function Cadastroproduto() {
   const salvardados = (e) => {
     e.preventDefault();
     // Verifica se algum campo está vazio antes de salvar
-    if (!descricao || !quantidade_minima || !quantidade_maxima || !valor_unitario) {
+    if (!produto || !estoque_minimo || !estoque_maximo || !valor_unitario) {
       alert("Por favor, preencha todos os campos antes de salvar!");
       return;
     }
-    const produto = {
+    const novoProduto = {
       id: Date.now().toString(36) + Math.floor(Math.pow(10, 12) + Math.random() * 9 * Math.pow(10, 12)).toString(36),
-      descricao,
-      quantidade_minima,
-      quantidade_maxima,
+      produto, // Aqui alteramos de "descrição" para "produto"
+      estoque_minimo,
+      estoque_maximo,
       valor_unitario, 
     };
     const banco = JSON.parse(localStorage.getItem("produtos") || "[]");
-    banco.push(produto);
+    banco.push(novoProduto);
     localStorage.setItem("produtos", JSON.stringify(banco));
     alert("Dados Salvos com Sucesso!!!!!");
     navigate("/listaproduto");
@@ -49,21 +49,21 @@ export default function Cadastroproduto() {
           <form onSubmit={salvardados}>
             <input
               type="text"
-              placeholder="Descrição"
-              value={descricao}
-              onChange={(e) => setDescricao(e.target.value)}
+              placeholder="Produto" // Aqui alteramos de "Descrição" para "Produto"
+              value={produto}
+              onChange={(e) => setProduto(e.target.value)}
             />
             <input
               type="number"
-              placeholder="Quantidade Mínima"
-              value={quantidade_minima}
-              onChange={(e) => setQuantidade_minima(e.target.value)}
+              placeholder="Estoque Mínimo"
+              value={estoque_minimo}
+              onChange={(e) => setEstoqueMinimo(e.target.value)}
             />
             <input
               type="number"
-              placeholder="Quantidade Máxima"
-              value={quantidade_maxima}
-              onChange={(e) => setQuantidade_maxima(e.target.value)}
+              placeholder="Estoque Máximo"
+              value={estoque_maximo}
+              onChange={(e) => setEstoqueMaximo(e.target.value)}
             />
             <input
               type="number" 

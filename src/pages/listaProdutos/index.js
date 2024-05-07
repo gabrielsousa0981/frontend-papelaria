@@ -68,7 +68,7 @@ useEffect(()=>{
            <table>
             <tr>
              <th>ID</th>
-             <th>Descrição</th>
+             <th>Produto</th>
              <th>valor Unitário</th>
              <th>Estoque Mínimo</th>
              <th>Estoque Máximo</th>
@@ -81,10 +81,10 @@ useEffect(()=>{
                      return(
                         <tr key={linha.toString()}>
                         <td>{linha.id}</td>
-                        <td>{linha.descricao}</td>
+                        <td>{linha.produto}</td>
                         <td>{linha.valor_unitario}</td>
-                        <td>{linha.quantidade_minima}</td>
-                        <td>{linha.quantidade_maxima}</td>
+                        <td>{linha.estoque_minimo}</td>
+                        <td>{linha.estoque_maximo}</td>
                         <td>
                             <FiEdit size={24} color="blue" cursor="pointer" onClick={(e)=>{editarproduto(linha.id)}} />
                         </td>

@@ -64,7 +64,7 @@ export default function ListaEstoque() {
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>id_Produto</th>
+                                <th>Produto</th>
                                 <th>Quantidade</th>
                                 <th>Valor Unitário</th>
                                 <th></th>
@@ -74,11 +74,9 @@ export default function ListaEstoque() {
                         <tbody>
                             {estoque.map(item => (
                                 <tr key={item.id}>
-                                    <td>{item.id}</td>
-                                    <td>{item.descricao}</td>
+                                    <td>{item.produto}</td>
                                     <td>{item.quantidade}</td>
-                                    <td>{item.preco_unitario}</td>
-                                    <td>{item.data_validade}</td>
+                                    <td>{item.valor_unitario}</td>
                                     <td>
                                         <FiEdit size={24} color="blue" cursor="pointer" onClick={() => editarItem(item.id)} />
                                     </td>

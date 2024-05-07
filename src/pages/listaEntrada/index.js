@@ -67,7 +67,7 @@ export default function ListaEntrada() {
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>id_Produto</th>
+                                <th>Produto</th>
                                 <th>Quantidade</th>
                                 <th>Valor Unitário</th>
                                 <th>Data de Entrada</th>

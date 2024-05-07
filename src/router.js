@@ -4,7 +4,6 @@ import Dashboard from './pages/dashboard';
 import Cadastrousuario from './pages/cadastroUsuario';
 import Cadastroproduto from './pages/cadastroProduto';
 import CadastroEntrada from './pages/cadastroEntrada';
-import CadastroEstoque from './pages/cadastroEstoque';
 import CadastroSaida from './pages/cadastroSaida'; // Importe a página de cadastro de saída
 
 import Listausuarios from './pages/listaUsuarios';
@@ -26,7 +25,6 @@ export default function Rotas() {
         <Route path="/cadastroproduto" element={<Cadastroproduto />} />
         <Route path="/cadastroentrada" element={<CadastroEntrada />} />
         <Route path="/cadastrosaida" element={<CadastroSaida />} /> {/* Adicione a rota para o cadastro de saída */}
-        <Route path="/cadastroestoque" element={<CadastroEstoque />} />
 
         <Route path="/listausuario" element={<Listausuarios />} />
         <Route path="/listaproduto" element={<Listaprodutos />} />
