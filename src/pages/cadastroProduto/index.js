@@ -10,7 +10,8 @@ export default function Cadastroproduto() {
   const [produto, setProduto] = useState("");
   const [estoque_minimo, setEstoqueMinimo] = useState("");
   const [estoque_maximo, setEstoqueMaximo] = useState("");
-  const [valor_unitario, setValorUnitario] = useState(""); 
+  const [valor_unitario, setValorUnitario] = useState("");
+  const [status, setStatus] = useState("ativo");
 
   useEffect(() => {
     // Aqui você pode realizar alguma lógica se necessário
@@ -25,10 +26,11 @@ export default function Cadastroproduto() {
     }
     const novoProduto = {
       id: Date.now().toString(36) + Math.floor(Math.pow(10, 12) + Math.random() * 9 * Math.pow(10, 12)).toString(36),
-      produto, // Aqui alteramos de "descrição" para "produto"
+      produto,
       estoque_minimo,
       estoque_maximo,
-      valor_unitario, 
+      valor_unitario: parseFloat(valor_unitario).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }), // Convertendo para formato de moeda brasileira
+      status,
     };
     const banco = JSON.parse(localStorage.getItem("produtos") || "[]");
     banco.push(novoProduto);
@@ -47,9 +49,13 @@ export default function Cadastroproduto() {
         <div className="main">
           <Head title="Cadastro de Produto" />
           <form onSubmit={salvardados}>
+            <select value={status} onChange={(e) => setStatus(e.target.value)}>
+              <option value="ativo">Ativo</option>
+              <option value="inativo">Inativo</option>
+            </select>
             <input
               type="text"
-              placeholder="Produto" // Aqui alteramos de "Descrição" para "Produto"
+              placeholder="Produto"
               value={produto}
               onChange={(e) => setProduto(e.target.value)}
             />

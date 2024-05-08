@@ -3,6 +3,8 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import logoicon from '../../../assets/img/logo.png'
 import {FiLogOut } from "react-icons/fi";
 import {useNavigate} from 'react-router-dom';
+import './Barrasuperior.css'; // Importar o arquivo de estilo CSS
+
 
 export default function Barrasuperior (){
   const navigate =useNavigate();

@@ -1,0 +1,27 @@
+/* styles.css */
+
+/* Estilo para a barra superior */
+.barrasuperior {
+    background-color: #F1BE43; /* Cor de fundo azul */
+    color: #ffffff; /* Cor do texto branco */
+    padding: 10px; /* Espaçamento interno */
+    display: flex; /* Usado para alinhar os itens horizontalmente */
+    justify-content: space-between; /* Alinha os itens nas extremidades */
+    align-items: center; /* Alinha os itens verticalmente */
+}
+
+/* Estilo para o logotipo */
+.logoicon {
+    width: 50px; /* Largura do logotipo */
+    height: auto; /* Altura ajustável para manter a proporção */
+}
+
+/* Estilo para o título */
+h1 {
+    margin: 0; /* Remove as margens padrão */
+}
+
+/* Estilo para o ícone de logout */
+.fiLogOut {
+    cursor: pointer; /* Define o cursor como ponteiro ao passar o mouse */
+}

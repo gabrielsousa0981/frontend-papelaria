@@ -15,8 +15,17 @@ export default function ListaSaida() {
 
     function mostrarSaidas() {
         const listaSaidas = JSON.parse(localStorage.getItem("saidas") || "[]")
-        setQuantidade(listaSaidas.length)
-        setSaidas(listaSaidas);
+        const produtos = JSON.parse(localStorage.getItem("produtos") || "[]");
+
+        // Mapeia cada saída e inclui o nome do produto correspondente
+        const saidasComNomeProduto = listaSaidas.map(saida => {
+            const produto = produtos.find(produto => produto.id === saida.id_produto);
+            const nomeProduto = produto ? produto.produto : "Produto não encontrado";
+            return { ...saida, produto: nomeProduto };
+        });
+
+        setQuantidade(saidasComNomeProduto.length);
+        setSaidas(saidasComNomeProduto);
     }
 
     function editarSaida(id) {
@@ -24,27 +33,43 @@ export default function ListaSaida() {
         navigate(`/editarsaida/${id}`);
     }
 
-    const excluirSaida = (id) => {
+    const confirmarExclusao = (id) => {
         confirmAlert({
-            title: 'Excluir saída de produto',
-            message: 'Deseja realmente excluir esta saída de produto?',
+            title: 'Excluir Saída',
+            message: 'Tem certeza que deseja excluir esta saída?',
             buttons: [
                 {
                     label: 'Sim',
-                    onClick: () => {
-                        const listaSaidas = JSON.parse(localStorage.getItem("saidas") || "[]")
-                        const novaLista = listaSaidas.filter(item => item.id !== id);
-                        localStorage.setItem("saidas", JSON.stringify(novaLista));
-                        mostrarSaidas();
-                    }
+                    onClick: () => excluirSaida(id)
                 },
                 {
-                    label: 'Não',
-                    onClick: () => alert('Ação cancelada!')
+                    label: 'Cancelar',
+                    onClick: () => {} // Não faz nada ao cancelar
                 }
             ]
         });
     };
+
+    const excluirSaida = (id) => {
+        const novaLista = saidas.filter(item => item.id !== id);
+        setSaidas(novaLista);
+        localStorage.setItem("saidas", JSON.stringify(novaLista));
+    
+        // Atualizar o estoque após excluir a saída
+        const saidaExcluida = saidas.find(saida => saida.id === id);
+        if (saidaExcluida) {
+            const produtos = JSON.parse(localStorage.getItem("produtos") || "[]");
+            const produtoAtualizado = produtos.find(produto => produto.id === saidaExcluida.id_produto);
+            if (produtoAtualizado) {
+                produtoAtualizado.quantidade += saidaExcluida.qtde;
+                localStorage.setItem("produtos", JSON.stringify(produtos));
+            }
+        }
+    
+        // Atualizar o número de saídas
+        setQuantidade(novaLista.length);
+    };
+    
 
     useEffect(() => {
         mostrarSaidas()
@@ -67,25 +92,27 @@ export default function ListaSaida() {
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>ID_Produto</th>
+                                <th>Produto</th>
                                 <th>Quantidade</th>
-                                <th>data_saida</th>
+                                <th>Valor Unitário</th>
+                                <th>Data de Saída</th>
                                 <th></th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            {saidas.map(saida => (
-                                <tr key={saida.id}>
-                                    <td>{saida.id}</td>
-                                    <td>{saida.produto}</td>
-                                    <td>{saida.quantidade}</td>
-                                    <td>{saida.data_saida}</td>
+                            {saidas.map((linha) => (
+                                <tr key={linha.id}>
+                                    <td>{linha.id}</td>
+                                    <td>{linha.produto}</td>
+                                    <td>{linha.qtde}</td>
+                                    <td>{linha.valor_unitario}</td>
+                                    <td>{linha.data_saida}</td>
                                     <td>
-                                        <FiEdit size={24} color="blue" cursor="pointer" onClick={() => editarSaida(saida.id)} />
+                                        <FiEdit size={24} color="blue" style={{ cursor: "pointer" }} onClick={() => editarSaida(linha.id)} />
                                     </td>
                                     <td>
-                                        <FiTrash size={24} color="red" cursor="pointer" onClick={() => excluirSaida(saida.id)} />
+                                        <FiTrash size={24} color="red" style={{ cursor: "pointer" }} onClick={() => confirmarExclusao(linha.id)} />
                                     </td>
                                 </tr>
                             ))}

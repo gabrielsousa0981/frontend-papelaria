@@ -24,8 +24,36 @@ export default function Cadastroentrada() {
 
   const salvarDados = (e) => {
     e.preventDefault();
-    // seu código de salvamento aqui
-  };
+
+    // Busca os produtos do localStorage
+    const produtos = JSON.parse(localStorage.getItem("produtos")) || [];
+    
+    // Encontra o produto correspondente ao id_produto selecionado
+    const produtoSelecionado = produtos.find(produto => produto.id === id_produto);
+
+    // Verifica se o produto foi encontrado
+    const nomeProduto = produtoSelecionado ? produtoSelecionado.produto : "Produto não encontrado";
+
+    // Cria o objeto de entrada com o nome do produto incluído
+    const entrada = {
+        id: Date.now().toString(36) + Math.floor(Math.pow(10, 12) + Math.random() * 9 * Math.pow(10, 12)).toString(36),
+        id_produto,
+        produto: nomeProduto, // Nome do produto incluído aqui
+        qtde,
+        valor_unitario,
+        data_entrada,
+    };
+
+    // Salva a entrada no localStorage
+    const entradas = JSON.parse(localStorage.getItem("entradas") || "[]");
+    entradas.push(entrada);
+    localStorage.setItem("entradas", JSON.stringify(entradas)); 
+
+    // Atualiza a página para exibir a lista de entrada
+    alert("Dados Salvos com Sucesso!!!!!");
+    navigate("/listaentrada");
+};
+
 
   return (
     <div className="dashboard-container">
@@ -62,7 +90,7 @@ export default function Cadastroentrada() {
             />
             <input
               type="date"
-              placeholder="Data de entrada"
+              placeholder="Data_Entrada"
               value={data_entrada}
               onChange={(e) => setData_entrada(e.target.value)}
             />
