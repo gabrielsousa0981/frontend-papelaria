@@ -5,8 +5,9 @@ import Menu from "../componentes/menu";
 import Barrasuperior from "../componentes/barrasuperior";
 
 export default function ListaEstoque() {
-    const [entradas, setEntradas] = useState([]);
-    const [quantidade, setQuantidade] = useState(0);
+    const [estoque, setEstoque] = useState([]);
+    const [quantidadeTotal, setQuantidadeTotal] = useState(0);
+    const [valorTotal, setValorTotal] = useState(0);
     const [produtos, setProdutos] = useState([]);
 
     // Função para buscar o nome do produto com base no ID
@@ -15,11 +16,51 @@ export default function ListaEstoque() {
         return produto ? produto.produto : "Produto não encontrado";
     };
 
-    function mostrarEntradas() {
-        const listaEntradas = JSON.parse(localStorage.getItem("entradas") || "[]");
-        setQuantidade(listaEntradas.length);
-        setEntradas(listaEntradas);
+    function mostrarEstoque() {
+        const entradas = JSON.parse(localStorage.getItem("entradas") || "[]");
+        const saidas = JSON.parse(localStorage.getItem("saidas") || "[]");
+    
+        const estoqueAtualizado = [];
+    
+        // Inclui as entradas no estoque
+        entradas.forEach(entrada => {
+            const nomeProduto = buscarNomeProduto(entrada.id_produto);
+            if (nomeProduto) {
+                estoqueAtualizado.push({ ...entrada, tipo: "Entrada", produto: nomeProduto });
+            } else {
+                console.error("Entrada inválida: produto não encontrado", entrada);
+            }
+        });
+    
+        // Subtrai as saídas do estoque total
+        saidas.forEach(saida => {
+            const nomeProduto = buscarNomeProduto(saida.id_produto);
+            if (nomeProduto) {
+                const produtoSaida = estoqueAtualizado.find(item => item.id_produto === saida.id_produto);
+                if (produtoSaida) {
+                    produtoSaida.qtde -= saida.qtde;
+                    estoqueAtualizado.push({ ...saida, tipo: "Saída", produto: nomeProduto });
+                } else {
+                    estoqueAtualizado.push({ ...saida, tipo: "Saída", produto: nomeProduto, qtde: -saida.qtde });
+                }
+            } else {
+                console.error("Saída inválida: produto não encontrado", saida);
+            }
+        });
+    
+        // Ordena o estoque por data
+        estoqueAtualizado.sort((a, b) => new Date(b.data) - new Date(a.data));
+    
+        // Calcula o total da quantidade e do valor
+        const totalQuantidade = estoqueAtualizado.reduce((acc, item) => acc + parseInt(item.qtde), 0);
+        setQuantidadeTotal(totalQuantidade);
+    
+        const totalValor = estoqueAtualizado.reduce((acc, item) => acc + (parseFloat(item.valor_unitario) * parseInt(item.qtde)), 0);
+        setValorTotal(totalValor);
+    
+        setEstoque(estoqueAtualizado);
     }
+    
 
     function carregarProdutos() {
         const listaProdutos = JSON.parse(localStorage.getItem("produtos") || "[]");
@@ -27,23 +68,9 @@ export default function ListaEstoque() {
     }
 
     useEffect(() => {
-        mostrarEntradas();
+        mostrarEstoque();
         carregarProdutos();
     }, []);
-
-    const atualizarEstoque = (id_produto, quantidade) => {
-        const novoEstoque = produtos.map(produto => {
-            if (produto.id === id_produto) {
-                return {
-                    ...produto,
-                    quantidade: produto.quantidade - quantidade
-                };
-            }
-            return produto;
-        });
-        localStorage.setItem("produtos", JSON.stringify(novoEstoque));
-        setProdutos(novoEstoque);
-    };
 
     return (
         <div className="dashboard-container">
@@ -65,18 +92,18 @@ export default function ListaEstoque() {
                             </tr>
                         </thead>
                         <tbody>
-                            {entradas.map(entrada => (
-                                <tr key={entrada.id}>
-                                    <td>{entrada.id}</td>
-                                    <td>{buscarNomeProduto(entrada.id_produto)}</td>
-                                    <td>{entrada.qtde}</td>
-                                    <td>{entrada.valor_unitario}</td>
+                            {estoque.map(linha => (
+                                <tr key={linha.id}>
+                                    <td>{linha.id}</td>
+                                    <td>{linha.produto}</td>
+                                    <td>{linha.qtde}</td>
+                                    <td>{linha.valor_unitario}</td>
                                 </tr>
                             ))}
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th colSpan={5}>Total de Entradas: {quantidade}</th>
+                                <th colSpan={5}>Total no Estoque: {quantidadeTotal}</th>
                             </tr>
                         </tfoot>
                     </table>

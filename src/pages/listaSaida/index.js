@@ -2,36 +2,39 @@ import React, { useState, useEffect } from "react";
 import '../../global.css'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import Head from "../componentes/head";
-import Menu from "../componentes/menu";
 import { Link, useNavigate } from "react-router-dom";
 import { FiEdit, FiTrash } from "react-icons/fi";
 import Barrasuperior from "../componentes/barrasuperior";
+import Head from "../componentes/head";
+import Menu from "../componentes/menu";
 
 export default function ListaSaida() {
     const navigate = useNavigate();
     const [saidas, setSaidas] = useState([]);
     const [quantidade, setQuantidade] = useState(0);
 
-    function mostrarSaidas() {
-        const listaSaidas = JSON.parse(localStorage.getItem("saidas") || "[]")
+    useEffect(() => {
+        mostrarSaidas();
+    }, []);
+
+    const mostrarSaidas = () => {
+        const listaSaidas = JSON.parse(localStorage.getItem("saidas") || "[]");
         const produtos = JSON.parse(localStorage.getItem("produtos") || "[]");
 
-        // Mapeia cada saída e inclui o nome do produto correspondente
         const saidasComNomeProduto = listaSaidas.map(saida => {
             const produto = produtos.find(produto => produto.id === saida.id_produto);
             const nomeProduto = produto ? produto.produto : "Produto não encontrado";
             return { ...saida, produto: nomeProduto };
         });
 
-        setQuantidade(saidasComNomeProduto.length);
         setSaidas(saidasComNomeProduto);
-    }
+        setQuantidade(saidasComNomeProduto.length);
+    };
 
-    function editarSaida(id) {
+    const editarSaida = (id) => {
         alert(`Estou editando a saída de produto com o ID: ${id}`);
         navigate(`/editarsaida/${id}`);
-    }
+    };
 
     const confirmarExclusao = (id) => {
         confirmAlert({
@@ -44,7 +47,7 @@ export default function ListaSaida() {
                 },
                 {
                     label: 'Cancelar',
-                    onClick: () => {} // Não faz nada ao cancelar
+                    onClick: () => {}
                 }
             ]
         });
@@ -54,26 +57,8 @@ export default function ListaSaida() {
         const novaLista = saidas.filter(item => item.id !== id);
         setSaidas(novaLista);
         localStorage.setItem("saidas", JSON.stringify(novaLista));
-    
-        // Atualizar o estoque após excluir a saída
-        const saidaExcluida = saidas.find(saida => saida.id === id);
-        if (saidaExcluida) {
-            const produtos = JSON.parse(localStorage.getItem("produtos") || "[]");
-            const produtoAtualizado = produtos.find(produto => produto.id === saidaExcluida.id_produto);
-            if (produtoAtualizado) {
-                produtoAtualizado.quantidade += saidaExcluida.qtde;
-                localStorage.setItem("produtos", JSON.stringify(produtos));
-            }
-        }
-    
-        // Atualizar o número de saídas
         setQuantidade(novaLista.length);
     };
-    
-
-    useEffect(() => {
-        mostrarSaidas()
-    }, [])
 
     return (
         <div className="dashboard-container">
@@ -84,7 +69,7 @@ export default function ListaSaida() {
                 </div>
                 <div className="main">
                     <Head title="Lista de Saída" />
-                    <div style={{ marginBottom: "20px" }}></div> {/* Espaçamento entre Head e tabela */}
+                    <div style={{ marginBottom: "20px" }}></div>
                     <div>
                         <Link to="/cadastrosaida" className='btn-novo'>Novo</Link>
                     </div>
@@ -126,5 +111,5 @@ export default function ListaSaida() {
                 </div>
             </div>
         </div>
-    )
+    );
 }

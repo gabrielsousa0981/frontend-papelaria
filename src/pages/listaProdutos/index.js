@@ -69,7 +69,7 @@ useEffect(()=>{
             <tr>
              <th>ID</th>
              <th>Produto</th>
-             <th>valor Unitário</th>
+             <th>Valor Unitário</th>
              <th>Estoque Mínimo</th>
              <th>Estoque Máximo</th>
              <th></th>

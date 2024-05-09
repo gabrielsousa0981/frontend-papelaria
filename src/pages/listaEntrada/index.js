@@ -2,36 +2,39 @@ import React, { useState, useEffect } from "react";
 import '../../global.css'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import Head from "../componentes/head";
-import Menu from "../componentes/menu";
 import { Link, useNavigate } from "react-router-dom";
 import { FiEdit, FiTrash } from "react-icons/fi";
 import Barrasuperior from "../componentes/barrasuperior";
+import Head from "../componentes/head";
+import Menu from "../componentes/menu";
 
 export default function ListaEntrada() {
     const navigate = useNavigate();
     const [entradas, setEntradas] = useState([]);
     const [quantidade, setQuantidade] = useState(0);
 
-    function mostrarEntradas() {
-        const listaEntradas = JSON.parse(localStorage.getItem("entradas") || "[]")
+    useEffect(() => {
+        mostrarEntradas();
+    }, []);
+
+    const mostrarEntradas = () => {
+        const listaEntradas = JSON.parse(localStorage.getItem("entradas") || "[]");
         const produtos = JSON.parse(localStorage.getItem("produtos") || "[]");
 
-        // Mapeia cada entrada e inclui o nome do produto correspondente
         const entradasComNomeProduto = listaEntradas.map(entrada => {
             const produto = produtos.find(produto => produto.id === entrada.id_produto);
             const nomeProduto = produto ? produto.produto : "Produto não encontrado";
             return { ...entrada, produto: nomeProduto };
         });
 
-        setQuantidade(entradasComNomeProduto.length);
         setEntradas(entradasComNomeProduto);
-    }
+        setQuantidade(entradasComNomeProduto.length);
+    };
 
-    function editarEntrada(id) {
+    const editarEntrada = (id) => {
         alert(`Estou editando a entrada de produto com o ID: ${id}`);
         navigate(`/editarentrada/${id}`);
-    }
+    };
 
     const confirmarExclusao = (id) => {
         confirmAlert({
@@ -44,7 +47,7 @@ export default function ListaEntrada() {
                 },
                 {
                     label: 'Cancelar',
-                    onClick: () => {} // Não faz nada ao cancelar
+                    onClick: () => {}
                 }
             ]
         });
@@ -54,12 +57,8 @@ export default function ListaEntrada() {
         const novaLista = entradas.filter(item => item.id !== id);
         setEntradas(novaLista);
         localStorage.setItem("entradas", JSON.stringify(novaLista));
-        setQuantidade(novaLista.length); // Atualiza o total de entradas
+        setQuantidade(novaLista.length);
     };
-
-    useEffect(() => {
-        mostrarEntradas()
-    }, [])
 
     return (
         <div className="dashboard-container">
@@ -70,7 +69,7 @@ export default function ListaEntrada() {
                 </div>
                 <div className="main">
                     <Head title="Lista de Entrada" />
-                    <div style={{ marginBottom: "20px" }}></div> {/* Espaçamento entre Head e tabela */}
+                    <div style={{ marginBottom: "20px" }}></div>
                     <div>
                         <Link to="/cadastroentrada" className='btn-novo'>Novo</Link>
                     </div>
@@ -92,7 +91,7 @@ export default function ListaEntrada() {
                                     <td>{linha.id}</td>
                                     <td>{linha.produto}</td>
                                     <td>{linha.qtde}</td>
-                                    <td>{linha.valor_unitario}</td>
+                                    <td>{linha.valor_unitario.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
                                     <td>{linha.data_entrada}</td>
                                     <td>
                                         <FiEdit size={24} color="blue" style={{ cursor: "pointer" }} onClick={() => editarEntrada(linha.id)} />
@@ -112,5 +111,5 @@ export default function ListaEntrada() {
                 </div>
             </div>
         </div>
-    )
+    );
 }

@@ -4,16 +4,15 @@ import Dashboard from './pages/dashboard';
 import Cadastrousuario from './pages/cadastroUsuario';
 import Cadastroproduto from './pages/cadastroProduto';
 import CadastroEntrada from './pages/cadastroEntrada';
-import CadastroSaida from './pages/cadastroSaida'; // Importe a página de cadastro de saída
-
+import CadastroSaida from './pages/cadastroSaida';
 import Listausuarios from './pages/listaUsuarios';
 import Listaprodutos from './pages/listaProdutos';
 import ListaEntrada from './pages/listaEntrada';
 import ListaEstoque from './pages/listaEstoque';
 import ListaSaida from './pages/listaSaida';
-
 import Editarusuario from './pages/editarUsuario';
 import Editarproduto from './pages/editarProduto';
+import EditarEntrada from './pages/editarEntrada'; // Importe a página de edição de entrada
 
 export default function Rotas() {
   return (
@@ -24,7 +23,7 @@ export default function Rotas() {
         <Route path="/cadastrousuario" element={<Cadastrousuario />} />
         <Route path="/cadastroproduto" element={<Cadastroproduto />} />
         <Route path="/cadastroentrada" element={<CadastroEntrada />} />
-        <Route path="/cadastrosaida" element={<CadastroSaida />} /> {/* Adicione a rota para o cadastro de saída */}
+        <Route path="/cadastrosaida" element={<CadastroSaida />} />
 
         <Route path="/listausuario" element={<Listausuarios />} />
         <Route path="/listaproduto" element={<Listaprodutos />} />
@@ -34,6 +33,7 @@ export default function Rotas() {
 
         <Route path="/editarusuario/:id" element={<Editarusuario />} />
         <Route path="/editarproduto/:id" element={<Editarproduto />} />
+        <Route path="/editarentrada/:id" element={<EditarEntrada />} /> {/* Adicione a rota para a edição de entrada */}
       </Routes>
     </BrowserRouter>
   );
