@@ -36,7 +36,18 @@ export default function ListaSaida() {
         navigate(`/editarsaida/${id}`);
     };
 
-    const confirmarExclusao = (id) => {
+    const confirmarExclusao = (id, qtde) => {
+        const produto = JSON.parse(localStorage.getItem("produtos") || "[]").find(p => p.id === id);
+        if (!produto) {
+            alert("Produto não encontrado!");
+            return;
+        }
+
+        if (produto.qtde < qtde) {
+            alert("Quantidade de saída maior do que a quantidade em estoque!");
+            return;
+        }
+
         confirmAlert({
             title: 'Excluir Saída',
             message: 'Tem certeza que deseja excluir esta saída?',
@@ -55,9 +66,10 @@ export default function ListaSaida() {
 
     const excluirSaida = (id) => {
         const novaLista = saidas.filter(item => item.id !== id);
+        const novaQuantidade = novaLista.length;
         setSaidas(novaLista);
+        setQuantidade(novaQuantidade);
         localStorage.setItem("saidas", JSON.stringify(novaLista));
-        setQuantidade(novaLista.length);
     };
 
     return (
@@ -97,7 +109,7 @@ export default function ListaSaida() {
                                         <FiEdit size={24} color="blue" style={{ cursor: "pointer" }} onClick={() => editarSaida(linha.id)} />
                                     </td>
                                     <td>
-                                        <FiTrash size={24} color="red" style={{ cursor: "pointer" }} onClick={() => confirmarExclusao(linha.id)} />
+                                        <FiTrash size={24} color="red" style={{ cursor: "pointer" }} onClick={() => confirmarExclusao(linha.id, linha.qtde)} />
                                     </td>
                                 </tr>
                             ))}

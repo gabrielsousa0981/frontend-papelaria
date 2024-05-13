@@ -7,7 +7,6 @@ import Barrasuperior from "../componentes/barrasuperior";
 export default function ListaEstoque() {
     const [estoque, setEstoque] = useState([]);
     const [quantidadeTotal, setQuantidadeTotal] = useState(0);
-    const [valorTotal, setValorTotal] = useState(0);
     const [produtos, setProdutos] = useState([]);
 
     // Função para buscar o nome do produto com base no ID
@@ -51,14 +50,12 @@ export default function ListaEstoque() {
         // Ordena o estoque por data
         estoqueAtualizado.sort((a, b) => new Date(b.data) - new Date(a.data));
     
-        // Calcula o total da quantidade e do valor
+        // Atualiza o estado do estoque
+        setEstoque(estoqueAtualizado);
+
+        // Calcula o total de unidades no estoque
         const totalQuantidade = estoqueAtualizado.reduce((acc, item) => acc + parseInt(item.qtde), 0);
         setQuantidadeTotal(totalQuantidade);
-    
-        const totalValor = estoqueAtualizado.reduce((acc, item) => acc + (parseFloat(item.valor_unitario) * parseInt(item.qtde)), 0);
-        setValorTotal(totalValor);
-    
-        setEstoque(estoqueAtualizado);
     }
     
 
@@ -97,7 +94,7 @@ export default function ListaEstoque() {
                                     <td>{linha.id}</td>
                                     <td>{linha.produto}</td>
                                     <td>{linha.qtde}</td>
-                                    <td>{linha.valor_unitario}</td>
+                                    <td>{parseFloat(linha.valor_unitario).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
                                 </tr>
                             ))}
                         </tbody>

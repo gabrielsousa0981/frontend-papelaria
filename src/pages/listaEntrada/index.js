@@ -91,7 +91,7 @@ export default function ListaEntrada() {
                                     <td>{linha.id}</td>
                                     <td>{linha.produto}</td>
                                     <td>{linha.qtde}</td>
-                                    <td>{linha.valor_unitario.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
+                                    <td>{parseFloat(linha.valor_unitario).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</td>
                                     <td>{linha.data_entrada}</td>
                                     <td>
                                         <FiEdit size={24} color="blue" style={{ cursor: "pointer" }} onClick={() => editarEntrada(linha.id)} />
