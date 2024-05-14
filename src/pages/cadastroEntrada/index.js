@@ -104,7 +104,7 @@ if (produtoexiste.length > 0 && produtoexiste[0].produto) {
             <select name="select" value={produtoSelecionado} onChange={(e) => setProdutoSelecionado(e.target.value)}>
               <option value="">Selecione um Produto</option>
               {produtos.map((produto) => (
-                <option key={produto.id} value={produto.descricao}>{produto.descricao}</option>
+                <option key={produto.id} value={produto.descricao}>{produto.produto}</option>
               ))}
             </select>
             <input

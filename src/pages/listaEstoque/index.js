@@ -15,6 +15,16 @@ export default function ListaEstoque() {
         return produto ? produto.produto : "Produto não encontrado";
     };
 
+    useEffect(() => {
+        mostrarEstoque();
+        carregarProdutos();
+    }, []);
+
+    // Atualiza o estoque sempre que houver mudança nas entradas ou saídas
+    useEffect(() => {
+        mostrarEstoque();
+    }, [localStorage.getItem("entradas"), localStorage.getItem("saidas")]);
+
     function mostrarEstoque() {
         const entradas = JSON.parse(localStorage.getItem("entradas") || "[]");
         const saidas = JSON.parse(localStorage.getItem("saidas") || "[]");
@@ -54,20 +64,13 @@ export default function ListaEstoque() {
         setEstoque(estoqueAtualizado);
 
         // Calcula o total de unidades no estoque
-        const totalQuantidade = estoqueAtualizado.reduce((acc, item) => acc + parseInt(item.qtde), 0);
-        setQuantidadeTotal(totalQuantidade);
+        setQuantidadeTotal(estoqueAtualizado.length);
     }
-    
 
     function carregarProdutos() {
         const listaProdutos = JSON.parse(localStorage.getItem("produtos") || "[]");
         setProdutos(listaProdutos);
     }
-
-    useEffect(() => {
-        mostrarEstoque();
-        carregarProdutos();
-    }, []);
 
     return (
         <div className="dashboard-container">

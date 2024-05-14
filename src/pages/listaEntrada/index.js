@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import '../../global.css'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { Link, useNavigate } from "react-router-dom";
@@ -22,7 +21,7 @@ export default function ListaEntrada() {
         const produtos = JSON.parse(localStorage.getItem("produtos") || "[]");
 
         const entradasComNomeProduto = listaEntradas.map(entrada => {
-            const produto = produtos.find(produto => produto.id === entrada.id_produto);
+            const produto = produtos.find(produto => produto.id === entrada.produto);
             const nomeProduto = produto ? produto.produto : "Produto não encontrado";
             return { ...entrada, produto: nomeProduto };
         });

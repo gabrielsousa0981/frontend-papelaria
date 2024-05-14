@@ -22,7 +22,7 @@ export default function ListaSaida() {
         const produtos = JSON.parse(localStorage.getItem("produtos") || "[]");
 
         const saidasComNomeProduto = listaSaidas.map(saida => {
-            const produto = produtos.find(produto => produto.id === saida.id_produto);
+            const produto = produtos.find(produto => produto.id === saida.produto);
             const nomeProduto = produto ? produto.produto : "Produto não encontrado";
             return { ...saida, produto: nomeProduto };
         });
@@ -39,29 +39,38 @@ export default function ListaSaida() {
     const confirmarExclusao = (id, qtde) => {
         const produto = JSON.parse(localStorage.getItem("produtos") || "[]").find(p => p.id === id);
         if (!produto) {
-            alert("Produto não encontrado!");
-            return;
-        }
-
-        if (produto.qtde < qtde) {
+            confirmAlert({
+                title: 'Deseja excluir esse produto ?',
+                message: 'Ao excluir esta saída, o registro associado a ela será permanentemente removido. Deseja continuar?',
+                buttons: [
+                    {
+                        label: 'Sim',
+                        onClick: () => excluirSaida(id)
+                    },
+                    {
+                        label: 'Cancelar',
+                        onClick: () => {}
+                    }
+                ]
+            });
+        } else if (produto.qtde < qtde) {
             alert("Quantidade de saída maior do que a quantidade em estoque!");
-            return;
+        } else {
+            confirmAlert({
+                title: 'Excluir Saída',
+                message: 'Ao excluir esta saída, o registro associado a ela será permanentemente removido. Deseja continuar?',
+                buttons: [
+                    {
+                        label: 'Sim',
+                        onClick: () => excluirSaida(id)
+                    },
+                    {
+                        label: 'Cancelar',
+                        onClick: () => {}
+                    }
+                ]
+            });
         }
-
-        confirmAlert({
-            title: 'Excluir Saída',
-            message: 'Tem certeza que deseja excluir esta saída?',
-            buttons: [
-                {
-                    label: 'Sim',
-                    onClick: () => excluirSaida(id)
-                },
-                {
-                    label: 'Cancelar',
-                    onClick: () => {}
-                }
-            ]
-        });
     };
 
     const excluirSaida = (id) => {

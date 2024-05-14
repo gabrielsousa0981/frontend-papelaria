@@ -5,11 +5,17 @@ import Cadastrousuario from './pages/cadastroUsuario';
 import Cadastroproduto from './pages/cadastroProduto';
 import CadastroEntrada from './pages/cadastroEntrada';
 import CadastroSaida from './pages/cadastroSaida';
+
+
+
 import Listausuarios from './pages/listaUsuarios';
 import Listaprodutos from './pages/listaProdutos';
 import ListaEntrada from './pages/listaEntrada';
 import ListaEstoque from './pages/listaEstoque';
 import ListaSaida from './pages/listaSaida';
+
+
+
 import Editarusuario from './pages/editarUsuario';
 import Editarproduto from './pages/editarProduto';
 import EditarEntrada from './pages/editarEntrada'; // Importe a página de edição de entrada

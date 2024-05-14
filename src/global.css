@@ -122,11 +122,11 @@ body{
         
     }
     nav{
-        height: 90vh;
+        height: 80vh;
     }
 
     .link:hover{
-        background-color:#F24405 ;
+        background-color:#a29d7f ;
         color: white;
        }
        .icon-menu{
@@ -182,3 +182,42 @@ body{
         text-align: left;
         padding: 5px;
       }
+
+      @media screen and (max-width: 768px){
+        /* Estilizações CSS */
+        .menu{
+            display: none;
+        }
+        table {
+            display: block;
+            position: relative;
+            width: 100%;
+            overflow-x: scroll;
+            margin-top: 20px;
+          }
+          .btn-menu{
+            display: block;
+            width: 100%;
+            font-size: 24px;
+            
+        
+         }
+          
+
+    }
+    .head{
+       
+             justify-content: center;
+          
+             margin-bottom:15px ;
+    
+            }
+ .btn-menu{
+    display: inline-flex;
+    font-size: 24px;
+    display: none;
+
+ }
+table{
+    margin-top: 10px;
+}

@@ -9,7 +9,7 @@ export default function EditarEntrada() {
   const { id } = useParams();
   const [entrada, setEntrada] = useState({
     id: "",
-    id_produto: "",
+    produto: "",
     qtde: "",
     valor_unitario: "",
     data_entrada: "",
@@ -56,7 +56,7 @@ export default function EditarEntrada() {
               type="text"
               placeholder="Produto"
               value={entrada.produto}
-              onChange={(e) => setEntrada({ ...entrada, id_produto: e.target.value })}
+              onChange={(e) => setEntrada({ ...entrada, produto: e.target.value })}
             />
             <input
               type="number"
