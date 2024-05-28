@@ -11,15 +11,19 @@ export default function ListaEntrada() {
     const navigate = useNavigate();
     const [entradas, setEntradas] = useState([]);
     const [quantidade, setQuantidade] = useState(0);
+    const [produtos, setProdutos] = useState([]);
 
     useEffect(() => {
         mostrarEntradas();
     }, []);
 
+    useEffect(() => {
+        const listaProdutos = JSON.parse(localStorage.getItem("produtos") || "[]");
+        setProdutos(listaProdutos);
+    }, []);
+
     const mostrarEntradas = () => {
         const listaEntradas = JSON.parse(localStorage.getItem("entradas") || "[]");
-        const produtos = JSON.parse(localStorage.getItem("produtos") || "[]");
-
         const entradasComNomeProduto = listaEntradas.map(entrada => {
             const produto = produtos.find(produto => produto.id === entrada.produto);
             const nomeProduto = produto ? produto.produto : "Produto não encontrado";
