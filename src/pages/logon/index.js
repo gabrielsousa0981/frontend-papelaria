@@ -23,25 +23,33 @@ export default function Logon(){
         api.post("/usuario/login",{email,senha})
         .then(resposta=>{
             if(resposta.status==200)
-            console.log(resposta.data.usuarios)
+
+            {
+
+                console.log(resposta.data.usuarios)
+                navigate('/dashboard')
+
+
+            }
+
             if(resposta.status==500)
             alert("houve um erro")
 
         })
-        //const usuariologado=banco.filter(linha=>{
-           // return linha.email===email && linha.senha==senha
-        //})
+    //     //const usuariologado=banco.filter(linha=>{
+    //        // return linha.email===email && linha.senha==senha
+    //     //})
 
-        console.log(usuariologado)
-        if(usuariologado.length>0){
-            navigate('/dashboard')
-        }else{
-            alert("E-mail ou senha incorretos!")
-        }
+    //     console.log(usuariologado)
+    //     if(usuariologado.length>0){
+    //         navigate('/dashboard')
+    //     }else{
+    //         alert("E-mail ou senha incorretos!")
+    //     }
 
-      }
+       }
 
-    }
+     }
    return(
     <div className="logon-container">
         <section className="form">
